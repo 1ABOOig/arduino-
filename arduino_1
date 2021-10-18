@@ -1,0 +1,273 @@
+1.ardunio乘法口诀
+void setup() {
+ int i,j;
+  Serial.begin(9600);
+  for(i=1;i<=9;i++){
+    for(j=1;j<=i;j++)
+    {
+      Serial.print(i);
+      Serial.print("*");
+      Serial.print(j);
+      Serial.print("=");
+  Serial.print(i*j);
+   Serial.print(" "); 
+  
+  
+   }Serial.println();
+    }
+}
+
+void loop() {
+  
+  
+  }
+
+2、光敏电阻控制灯亮灭
+int y;
+void setup() {
+  
+  
+  pinMode(12,OUTPUT);
+  Serial.begin(9600);
+ // put your setup code here, to run once:
+
+}
+
+void loop() {
+  y = analogRead(A0);
+  Serial.println(y);
+  if(y>1010)
+  {
+  digitalWrite(12,1);  
+  }
+  else
+  {
+    digitalWrite(12,0);  
+  }
+  delay(100); 
+  }
+
+3、按键控制灯亮灭
+
+ int LED = 13;
+void setup()
+{
+  pinMode(LED,OUTPUT);  
+}
+void loop()
+{
+ int i;
+
+ while(1){ i=analogRead(A0);
+ if(i>1000)
+ digitalWrite(LED,HIGH);  
+ else
+ digitalWrite(LED,LOW);
+}}
+
+
+4火焰传感器
+int beep = 8;
+int flameVal = A0;
+void setup()
+{  Serial.begin(9600);
+  pinMode(beep,OUTPUT);
+  pinMode(A0,INPUT);  
+}
+void loop()
+{
+flameVal=analogRead(A0);
+   Serial.println(flameVal);
+/*if(flameVal>=50)
+digitalWrite(beep,HIGH);
+else
+digitalWrite(beep,LOW);*/
+}
+
+
+ 5 三人抢答器
+int red,yellow,grean,rest;
+int r=0;
+void setup() {
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
+  pinMode(10,OUTPUT);
+  Serial.begin(9600);
+}
+void loop() { 
+while(r==0)
+ {
+  red = analogRead(A0);
+  Serial.println(red);
+  if(red>1000)
+  {
+  digitalWrite(8,1);r=1; 
+  }
+  break;
+ }
+  while(r==0)
+  {
+  yellow = analogRead(A1);
+  Serial.println(yellow);
+  if(yellow>1000)
+  {
+  digitalWrite(9,1);r=1;  
+  }
+break; 
+ }
+ while(r==0)
+  {
+  grean = analogRead(A2);
+  Serial.println(grean);
+  if(grean>1000)
+  {
+  digitalWrite(10,1);r=1;  
+  }
+break; 
+ }
+ while(r==1)
+ {
+  rest = analogRead(A3);
+  if(rest>1000)
+  {
+    digitalWrite(8,0);
+    digitalWrite(9,0);
+    digitalWrite(10,0);
+    r=0;
+  }
+   
+ }
+ }
+
+
+6、蜂鸣器（多想爱这个世界啊）
+
+#define NOTE_C0 -1
+#define NOTE_C1 262
+#define NOTE_C2 294
+#define NOTE_C3 330
+#define NOTE_C4 350
+#define NOTE_C5 393
+#define NOTE_C6 441
+#define NOTE_C7 495
+
+#define NOTE_CL1 131
+#define NOTE_CL2 147
+#define NOTE_CL3 165
+#define NOTE_CL4 175
+#define NOTE_CL5 196
+#define NOTE_CL6 221
+#define NOTE_CL7 248
+
+#define NOTE_CH1 525
+#define NOTE_CH2 589
+#define NOTE_CH3 661
+#define NOTE_CH4 700
+#define NOTE_CH5 786
+#define NOTE_CH6 882
+#define NOTE_CH7 990
+
+//以上部分是定义是把每个音符和频率值对应起来，其实不用打这么多，但是都打上了，后面可以随意编写D调的各种歌，我这里用NOTE_D+数字表示音符，NOTE_DH+数字表示上面有点的那种音符，NOTE_DL+数字表示下面有点的那种音符。这样后面写起来比较好识别。
+#define WHOLE 1
+#define HALF 0.5
+#define QUARTER 0.25
+#define EIGHTH 0.25
+#define SIXTEENTH 0.625
+//这部分是用英文对应了拍子，这样后面也比较好看
+int tune[] =
+{
+  NOTE_C5,NOTE_C6,NOTE_CH1,NOTE_CH1,NOTE_C5,NOTE_C6,NOTE_CH1,NOTE_CH1,NOTE_C5,NOTE_C6,NOTE_CH1,
+  NOTE_CH1,NOTE_C0, NOTE_CH1, NOTE_CH2, NOTE_CH1, NOTE_CH3, NOTE_CH3, NOTE_CH1,
+  NOTE_CH3,NOTE_CH2,NOTE_CH4,NOTE_CH4,NOTE_CH3,NOTE_CH2,NOTE_C7,NOTE_CH1,
+  NOTE_CH1,NOTE_C0, NOTE_C0, NOTE_C0, 
+  NOTE_C5,NOTE_C6,NOTE_CH1,NOTE_CH1,NOTE_C5,NOTE_C6,NOTE_CH1,NOTE_CH1,NOTE_C5,NOTE_C6,NOTE_CH1,
+  NOTE_CH1,NOTE_C0, NOTE_CH1, NOTE_CH2, NOTE_CH1, NOTE_CH3, NOTE_CH3, NOTE_CH1,
+  NOTE_CH3,NOTE_CH2,NOTE_CH4,NOTE_CH4,NOTE_CH3,NOTE_CH2,NOTE_C7,NOTE_CH1,
+  NOTE_CH1,NOTE_C0, NOTE_C0, NOTE_C0, 
+  NOTE_CH5,NOTE_CH3,NOTE_CH2,NOTE_CH5,NOTE_CH3,NOTE_CH2,NOTE_CH5,NOTE_CH3,
+  NOTE_CH1,NOTE_CH1,NOTE_CH2,NOTE_CH3,NOTE_CH2,NOTE_CH1,NOTE_C7,NOTE_CH1,
+  NOTE_C0,NOTE_C6,NOTE_CH1,NOTE_CH3,NOTE_CH2,NOTE_CH1,NOTE_CH3,NOTE_CH3,NOTE_CH3,
+  NOTE_CH3,NOTE_CH2,NOTE_CH1,NOTE_C5,
+  NOTE_CH5,NOTE_CH3,NOTE_CH2,NOTE_CH5,NOTE_CH3,NOTE_CH2,NOTE_CH5,NOTE_CH3,
+  NOTE_CH1,NOTE_CH1,NOTE_CH2,NOTE_CH3,NOTE_CH2,NOTE_CH1,NOTE_C7,NOTE_CH1,
+  NOTE_C0,NOTE_C6,NOTE_CH1,NOTE_CH3,NOTE_CH2,  NOTE_C0, NOTE_C0, 
+  NOTE_CH3,NOTE_CH5,NOTE_CH7,NOTE_CH1,NOTE_CH1,NOTE_CH5,NOTE_CH3,NOTE_CH1,
+  NOTE_C7,NOTE_CH1,NOTE_CH2,NOTE_CH3,NOTE_CH3,NOTE_CH5,NOTE_CH3,NOTE_CH1,
+  NOTE_CH1,NOTE_C5,NOTE_CH3,NOTE_CH2,NOTE_CH2,NOTE_C5,NOTE_CH4,NOTE_CH3,
+  NOTE_CH3,NOTE_CH1,NOTE_CH6,NOTE_CH5,NOTE_CH5,
+  NOTE_CH3,NOTE_CH5,NOTE_CH7,NOTE_CH1,NOTE_CH1,NOTE_CH5,NOTE_CH3,NOTE_CH1,
+  NOTE_C7,NOTE_CH1,NOTE_CH2,NOTE_CH3,NOTE_CH3,NOTE_CH5,NOTE_CH3,NOTE_CH1,
+  NOTE_CH1,NOTE_C5,NOTE_CH3,NOTE_CH2,NOTE_CH2,NOTE_CH1,
+  NOTE_CH1,
+
+  
+};//这部分就是整首曲子的音符部分，用了一个序列定义为tune，整数
+
+float duration[]=
+{
+  0.25,0.25,0.5,0.5,0.25,0.25,0.5,0.5,0.25,0.25,0.5,
+  1,0.5+0.5,0.25,0.25,0.5,0.25,0.25,0.5+0.5,
+  1+0.5,0.25,0.25,0.5,0.5,0.5,0.25,0.25,
+  1,1,1,1,
+  0.25,0.25,0.5,0.5,0.25,0.25,0.5,0.5,0.25,0.25,0.5,
+  1,0.5+0.5,0.25,0.25,0.5,0.25,0.25,0.5+0.5,
+  1+0.5,0.25,0.25,0.5,0.5,0.5,0.25,0.25,
+  1,1,1,1,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  1+0.5,0.25,0.25,0.5,0.5,0.25,0.25,0.5,
+  0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,
+  1+0.5,0.5,1,1,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  1+0.5,0.25,0.25,0.5,0.5,0.25,0.25,0.5,
+  0.5,0.5,0.5,0.5,1,
+  1,1,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  0.5,0.5,0.5,0.5,1+1,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+  0.5,0.5,0.5,0.5,1+0.5,0.5,
+  1+1+1+1
+};//这部分是整首曲子的接拍部分，也定义个序列duration，浮点（数组的个数和前面音符的个数是一样的，一一对应么）
+int length;//这里定义一个变量，后面用来表示共有多少个音符
+int tonePin=5;//蜂鸣器的pin
+
+void setup()
+{
+  pinMode(tonePin,OUTPUT);//设置蜂鸣器的pin为输出模式
+  length = sizeof(tune)/sizeof(tune[0]);//这里用了一个sizeof函数，可以查出tone序列里有多少个音符
+}
+
+void loop()
+{
+  for(int x=0;x<length;x++)//循环音符的次数
+  {
+    tone(tonePin,tune[x]);//此函数依次播放tune序列里的数组，即每个音符
+    delay(800*duration[x]);//每个音符持续的时间，即节拍duration，400是调整时间的越大，曲子速度越慢，越小曲子速度越快，自己掌握吧
+    noTone(tonePin);//停止当前音符，进入下一音符
+  }
+  delay(5000);//等待5秒后，循环重新开始
+}
+
+
+7、串口  控制灯亮灭
+void setup()
+{Serial.begin(9600);
+pinMode(13,OUTPUT);}
+void loop()
+{//如果缓冲区有数据，则读取并输出
+if(Serial.available()>0) //串口接收到了数据
+{char ch=Serial.read();//有设备通过串口向Arduino发送了数据，就通过Serial.read()来读去发送的数据
+Serial.println(ch); 
+//开灯
+if( ch=='a')
+{digitalWrite(13,HIGH);
+Serial.println("turn on");}
+//关灯
+if(ch=='b')
+{digitalWrite(13,LOW);
+Serial.println("turn off");}
+}
+}
+
